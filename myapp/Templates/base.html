@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Blog{% endblock %}</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        nav {
+            background-color: #003366;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            flex-grow: 1;
+        }
+
+        .nav-center {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            flex-grow: 2;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-right a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            position: relative;
+            transition: color 0.3s ease-in-out;
+        }
+        .nav-right a.activate{
+            color: #ffcc00;
+            font-weight: bold;
+        }
+        
+        .nav-right a.active::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: white;
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+        }
+
+        .nav-right form {
+            display: flex;
+            align-items: center;
+        }
+
+        nav form input[type="text"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        nav form button {
+            padding: 5px 10px;
+            margin-left: 5px;
+            border: none;
+            background-color: #0066cc;
+            color: white;
+        }
+
+        /* Post card styling */
+        .posts {
+            display: grid;
+            grid-template-colums: repeat(3, 1fr);
+            gap: 20px;
+            
+        }
+
+        .card {
+            width: 100;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .card img {
+            width: 80%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 15px;
+            
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .read-more {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        /* Post detail styling */
+        .post-detail img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-left"></div>  <!-- Empty div to make space for the center section -->
+
+        <div class="nav-center">
+            BLOG
+        </div>
+
+        <div class="nav-right">
+            <a href="{% url 'index' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+            <a href="#">About</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <form action="#" method="get">
+                <input type="text" name="q" placeholder="Search...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% extends 'Base.html' %}
+
+{% block content %}
+<h1 style="text-align: center; font-size: 3rem; color: #2c3e50; font-weight: bold; margin-bottom: 40px;">Welcome to the Blog</h1>
+<div class="posts-container" style="
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(30%, 1fr)); 
+gap: 15px;
+padding: 0 10px;
+">
+{% for post in posts %}
+  <div class="post-card" style=" 
+      background-color: rgb(49, 7, 108); 
+      border-radius: 10px; 
+      padding: 20px; 
+      color: white; 
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); 
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+  ">
+    
+    <h2 style="font-size: 1.8rem; font-weight: bold; margin-bottom: 15px; word-wrap: break-word;">{{ post.title }}</h2>
+    
+    <div class="post-image" style="text-align: center; margin-bottom: 20px;">
+      <img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);"/>
+    </div>
+
+    <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 20px; color: #ecf0f1; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">
+      {{ post.content|slice:":120" }}...
+    </p>
+    
+    <a href="{% url 'post_detail' post.slug %}" style="display: inline-block; padding: 10px 15px; background-color: #28a745; color: white; text-decoration: none; border: 2px solid #1e7e34; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); font-weight: bold; transition: background-color 0.3s ease;">
+      Read More
+    </a>
+    
+  </div>
+{% endfor %}
+</div>
+
+  
+{% endblock %}
